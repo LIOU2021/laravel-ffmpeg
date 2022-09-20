@@ -14,9 +14,9 @@ class VideoController extends Controller
     public function store(StoreVideoRequest $request)
     {
         $video = Video::create([
-            'disk'          => 'videos_disk',
+            'disk'          => 'local',
             'original_name' => $request->video->getClientOriginalName(),
-            'path'          => $request->video->store('videos', 'videos_disk'),
+            'path'          => $request->video->store('videos', 'local'),
             'title'         => $request->title,
         ]);
 
@@ -31,8 +31,8 @@ class VideoController extends Controller
     public function show($id)
     {
         // $downloadUrl = Storage::disk('downloadable_videos')->url($id . '.mp4');
-        $streamUrl = Storage::disk('streamable_videos')->url($id . '.m3u8');
+        // $streamUrl = Storage::disk('m3u8')->url($id . '.m3u8');
 
-        return $streamUrl;
+        // return $streamUrl;
     }
 }

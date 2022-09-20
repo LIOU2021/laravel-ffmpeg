@@ -35,7 +35,7 @@ class ConvertVideoForStreaming implements ShouldQueue
 
         // call the 'exportForHLS' method and specify the disk to which we want to export...
             ->exportForHLS()
-            ->toDisk('streamable_videos')
+            ->toDisk('local')
 
         // we'll add different formats so the stream will play smoothly
         // with all kinds of internet connections...
