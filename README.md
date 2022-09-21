@@ -1,3 +1,10 @@
+# 介紹
+- 本專案是以一個獨立轉檔伺服器的方向去設計
+- 目標是把mp4轉成m3u8，供影音平台專案使用
+## 前置作業
+- apt-get install ffmpeg
+- 配置你的QUEUE環境
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
