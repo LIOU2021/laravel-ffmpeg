@@ -8,6 +8,9 @@
 ## call api 範例
 <img src="./public/demo01.JPG"/>
 
+## 補充說明
+- 你可以自己再新增一個任務(job)使用queue，把這個對列的dispatch放在轉檔任務後，專門把轉檔後的檔案傳上雲端storage。
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
