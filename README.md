@@ -5,6 +5,12 @@
 - apt-get install ffmpeg
 - 配置你的QUEUE環境
 - php artisan storage:link
+- 產key在該路徑your_laravel_project/storage/app/public/videos/m3u8/secret.key
+```
+openssl rand 16 > secret.key
+
+openssl rand -hex 16
+```
 
 ## call api 範例
 <img src="./public/demo01.JPG"/>

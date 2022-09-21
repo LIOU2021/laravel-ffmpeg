@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Jobs;
 
 use App\Models\Video;
@@ -10,6 +11,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use ProtoneMedia\LaravelFFMpeg\Exporters\HLSExporter;
 
 class ConvertVideoForStreaming implements ShouldQueue
 {
@@ -24,6 +26,10 @@ class ConvertVideoForStreaming implements ShouldQueue
 
     public function handle()
     {
+
+
+        $encryptionKey = HLSExporter::generateEncryptionKey();
+
         // create some video formats...
         $lowBitrateFormat  = (new X264)->setKiloBitrate(500);
         $midBitrateFormat  = (new X264)->setKiloBitrate(1500);
@@ -33,17 +39,18 @@ class ConvertVideoForStreaming implements ShouldQueue
         FFMpeg::fromDisk($this->video->disk)
             ->open($this->video->path)
 
-        // call the 'exportForHLS' method and specify the disk to which we want to export...
+            // call the 'exportForHLS' method and specify the disk to which we want to export...
             ->exportForHLS()
+            // ->withEncryptionKey($encryptionKey)
             ->toDisk('m3u8')
 
-        // we'll add different formats so the stream will play smoothly
-        // with all kinds of internet connections...
+            // we'll add different formats so the stream will play smoothly
+            // with all kinds of internet connections...
             ->addFormat($lowBitrateFormat)
             ->addFormat($midBitrateFormat)
             ->addFormat($highBitrateFormat)
 
-        // call the 'save' method with a filename...
+            // call the 'save' method with a filename...
             ->save($this->video->id . '.m3u8');
 
         // update the database so we know the convertion is done!
