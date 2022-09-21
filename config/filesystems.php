@@ -36,6 +36,20 @@ return [
             'throw' => false,
         ],
 
+        'm3u8' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public')."/videos/m3u8",
+            'url' => env('APP_URL').'/storage/videos/m3u8',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+        
+        'resize_videos' => [
+            'driver' => 'local',
+            'root' => storage_path('app')."/videos/resize",
+            'throw' => false,
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

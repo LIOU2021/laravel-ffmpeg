@@ -42,7 +42,7 @@ class ConvertVideoForDownloading implements ShouldQueue
             ->export()
 
         // tell the MediaExporter to which disk and in which format we want to export...
-            ->toDisk('local')
+            ->toDisk('resize_videos')
             ->inFormat($lowBitrateFormat)
 
         // call the 'save' method with a filename...
