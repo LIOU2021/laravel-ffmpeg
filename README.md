@@ -1,23 +1,31 @@
 # 介紹
 - 本專案是以一個獨立轉檔伺服器的方向去設計
 - 目標是把mp4轉成m3u8，供影音平台專案使用
+- 每個切片ts都有獨立的key來加密
+- 在public/底下有一份demo檔案(test.mp4, test.m3u8, enc.key, encinfo.txt, OOXX.ts ... )，單純供測試用的。正式環境要拿掉
 ## 前置作業
 - apt-get install ffmpeg
 - 配置你的QUEUE環境
 - php artisan storage:link
-- 產key在該路徑your_laravel_project/storage/app/public/videos/m3u8/secret.key
-```
-openssl rand 16 > secret.key
-
-openssl rand -hex 16
-```
 
 ## call api 範例
+- 上傳檔案與轉檔
 <img src="./public/demo01.JPG"/>
+- 以video id 查詢串流位置
+<img src="./public/demo02.JPG"/>
 
 ## 補充說明
 - 你可以自己再新增一個任務(job)使用queue，把這個對列的dispatch放在轉檔任務後，專門把轉檔後的檔案傳上雲端storage。
 - 本專案是採用supervisor來監控queue並且控制進程
+- 如果使用ffmpeg指令轉碼的話，指令如下
+```
+# 記得先產一個key
+openssl rand 16 > secret.key
+openssl rand -hex 16
+
+
+ffmpeg -y -i test.mp4 -hls_time 5 -hls_key_info_file encinfo.txt -hls_playlist_type vod -hls_segment_filename "fileSequence%d.ts" test.m3u8
+```
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 

@@ -16,7 +16,7 @@
     <h1>影片串流範例</h1>
     
     <video id=example-video width=960 height=400 class="video-js vjs-default-skin" controls>
-        <source src="//d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8" type="application/x-mpegURL">
+        <source src="/test.m3u8" type="application/x-mpegURL">
     </video>
 
     <form id=load-url>

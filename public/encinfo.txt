@@ -1,0 +1,3 @@
+http://localhost:82/enc.key
+enc.key
+e676a53019730c1385f8973cf1e8688e
