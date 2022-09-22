@@ -36,6 +36,8 @@ class ConvertVideoForStreaming implements ShouldQueue
         $midBitrateFormat  = (new X264)->setKiloBitrate(1500);
         $highBitrateFormat = (new X264)->setKiloBitrate(3000);
 
+        $m3u8PrefixPath = "/" . $this->video->id . "/";
+
         // open the uploaded video from the right disk...
         FFMpeg::fromDisk($this->video->disk)
             ->open($this->video->path)
@@ -43,8 +45,8 @@ class ConvertVideoForStreaming implements ShouldQueue
             // call the 'exportForHLS' method and specify the disk to which we want to export...
             ->exportForHLS()
             // ->withEncryptionKey($encryptionKey)
-            ->withRotatingEncryptionKey(function($filename,$content){
-                Storage::disk('m3u8')->put($filename,$content);
+            ->withRotatingEncryptionKey(function ($filename, $content) use ($m3u8PrefixPath) {
+                Storage::disk('m3u8')->put($m3u8PrefixPath . $filename, $content);
             })
             ->toDisk('m3u8')
 
@@ -55,7 +57,7 @@ class ConvertVideoForStreaming implements ShouldQueue
             ->addFormat($highBitrateFormat)
 
             // call the 'save' method with a filename...
-            ->save($this->video->id . '.m3u8');
+            ->save($m3u8PrefixPath . $this->video->id . '.m3u8');
 
         // update the database so we know the convertion is done!
         $this->video->update([

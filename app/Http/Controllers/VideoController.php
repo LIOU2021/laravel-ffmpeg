@@ -38,7 +38,7 @@ class VideoController extends Controller
      */
     public function show($id)
     {
-        $streamUrl = Storage::disk('m3u8')->url($id . '.m3u8');
+        $streamUrl = Storage::disk('m3u8')->url($id . "/" . $id . '.m3u8');
         return $streamUrl;
     }
 }
