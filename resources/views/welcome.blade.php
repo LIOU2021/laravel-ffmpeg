@@ -14,7 +14,7 @@
 
 <body>
     <h1>影片串流範例</h1>
-    
+
     <video id=example-video width=960 height=400 class="video-js vjs-default-skin" controls>
         <source src="/test.m3u8" type="application/x-mpegURL">
     </video>
@@ -31,6 +31,20 @@
 
     <script>
         (function(window, videojs) {
+            //  全局拦截器
+            videojs.Vhs.xhr.beforeRequest = function(options) {
+                let headers = options.headers || {};
+                headers["headers1"] = "headers111";
+                headers["headers2"] = "headers222";
+                headers["token"] = "J2LqH1mnoXE0ZL5typ3VT3n4fe7RFYAO";
+
+                options.headers = headers;
+
+                console.log("options", options);
+
+                return options;
+            };
+            
             var player = window.player = videojs('example-video');
 
             // hook up the video switcher
